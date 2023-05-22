@@ -1,209 +1,115 @@
 <?php
-include('conn_db.php');
+include('phpFunctions.php');
 ?>
 <!DOCTYPE html>
 
 <head>
-    <title>PHP</title>
+    <title>PHP Functions</title>
 </head>
 
 <body>
-    <h3>Testing DB Connect</h3>
+    <a href="index.php?exer=1&enterChar=">PHP Exercise 1</a> |
+    <a href="index.php?exer=2&enterNum=">PHP Exercise 2</a> |
+    <a href="index.php?exer=3&enterDivNum=0">PHP Exercise 3</a> |
+    <a href="index.php?exer=4&string1=&string2=&string3=&string4=&string5=">PHP Exercise 4</a> |
+    <a href="index.php?exer=5&enterNum=">PHP Exercise 5</a> |
+    <br />
+    <hr />
+    <br />
+
     <?php
-    $query = mysqli_query($db_connect, "SELECT * FROM employees WHERE id=1");
-    $fetch_data = mysqli_fetch_array($query, MYSQLI_ASSOC);
+    if ($_REQUEST['exer'] == 1) {
+        ?>
+        <h3>PHP Functions Exercise 1</h3>
+        <form method="post" action="#">
+            Enter a Character:
+            <input type="text" size="2" name="enterChar" maxlength="1"
+                onkeydown="return /[a-zA-Z]/i.test(event.key)" /><br />
+            <input type="submit" value="Identify" /> <br /><br />
+        </form>
+        <?php
 
+        $getChar = strtoupper($_REQUEST['enterChar']);
 
-    echo "User Id : " . $fetch_data['user_id'] . "<br />";
-    echo "Code : " . $fetch_data['code'] . "<br />";
-    echo "Position : " . $fetch_data['position_title'] . "<br />";
-    echo "Employment Status : ";
-    if ($fetch_data['position_title'] == 1) {
-        echo "ACTIVE";
-    } else {
-        echo "NOT - ACTIVE";
+        echo checkCharacter($getChar);
     }
-    echo "<br />";
-    echo "Office Branch : " . $fetch_data['office_branch'] . "<br />";
     ?>
-    <br />
-    <hr />
-    <br />
-
-    <h3>PHP statements exercise 1</h3>
-    <div>
-        <?php
-        $word1 = 'class';
-        $word2 = 'kodego';
-        $word3 = 'top';
 
 
-
-        function getStringLength($string)
-        {
-            $stringLength = strlen($string);
-            return $stringLength;
-        }
-
-        if (getStringLength($word1) == 5) {
-            echo "The word <b>'" . $word1 . "'</b> has 5 characters";
-        } else {
-            echo "The word " . $word1 . " does not have 5 characters";
-        }
+    <?php
+    if ($_REQUEST['exer'] == 2) {
         ?>
-    </div>
+        <h3>PHP Functions Exercise 2</h3>
+        <form method="post" action="#">
+            Enter a number : <input type="number" name="enterNum" onkeydown="return /[0-9]/i.test(event.key)" />
+            <input type="submit" value="Enter Number" />
+        </form>
 
-    <br />
-    <hr />
-    <br />
-
-    <h3>PHP statements exercise 2</h3>
-    <div>
         <?php
+        $getDigit = $_REQUEST['enterNum'];
 
-        $quantity1 = 70;
-        $quantity2 = 100;
-        $price1 = 35;
-        $price2 = 30;
-
-        function multiplyTwoNumbers($num1, $num2)
-        {
-            $finalProduct = $num1 * $num2;
-            return $finalProduct;
-        }
-
-        $deal1 = multiplyTwoNumbers($quantity1, $price1);
-        $deal2 = multiplyTwoNumbers($quantity2, $price2);
-
-        if ($deal1 < $deal2) {
-            echo "The best deal is : <br />";
-            echo "Quantity : " . $quantity1 . "<br />";
-            echo "Price : " . $price1 . "<br />";
-            echo "Total : " . $deal1;
-        } else {
-            echo "The best deal is : <br />";
-            echo "Quantity : " . $quantity2 . "<br />";
-            echo "Price : " . $price2 . "<br />";
-            echo "Total : " . $deal2;
-        }
+        echo numberAsWord($getDigit);
+    } ?>
 
 
+    <?php
+    if ($_REQUEST['exer'] == 3) {
         ?>
-    </div>
-
-    <br />
-    <hr />
-    <br />
-
-    <h3>PHP statements exercise 3</h3>
-    <div>
+        <h3>PHP Functions Exercise 3</h3>
+        <form method="post" action="#">
+            Enter a number : <input type="number" name="enterDivNum" onkeydown="return /[0-9]/i.test(event.key)" />
+            <input type="submit" value="Enter Number" /> <br /><br />
+        </form>
         <?php
-        $month = 'NOVO';
+        $checkDivBy3 = $_REQUEST['enterDivNum'];
 
-        if (strlen($month) > 3){
-            $month = substr($month, 0, 3);
-        }
+        echo divisibleByThree($checkDivBy3);
+    }
+    ?>
 
-        switch (strtoupper($month)) {
-            case 'JAN':
-            case 'MAR':
-            case 'MAY':
-            case 'JUL':
-            case 'AUG':
-            case 'OCT':
-            case 'DEC':
-                echo "The month : " . $month . " has 31 days";
-                break;
-            case 'FEB':
-                echo "The month : " . $month . " has 28 or 29 days";
-                break;
-            case 'APR':
-            case 'JUN':
-            case 'SEP':
-            case 'NOV':
-                echo "The month : " . $month . " has 30 days";
-                break;
-            default:
-                echo "INVALID";
-        }
+
+    <?php
+    if ($_REQUEST['exer'] == 4) {
         ?>
-    </div>
-
-    <br />
-    <hr />
-    <br />
-
-    <h3>PHP statements exercise 4</h3>
-    <div>
+        <h3>PHP Functions Exercise 4</h3>
+        <form method="post" action="#">
+            Enter String 1 : <input type="text" name="string1" /><br />
+            Enter String 2 : <input type="text" name="string2" /><br />
+            Enter String 3 : <input type="text" name="string3" /><br />
+            Enter String 4 : <input type="text" name="string4" /><br />
+            Enter String 5 : <input type="text" name="string5" /><br />
+            <input type="submit" value="Enter Strings" /> <br /><br />
+        </form>
         <?php
-        $students = array(
-            ["name" => "John Garg", "age" => "15", "school" => "Ahlcon Public school"],
-            ["name" => "Smith Soy", "age" => "16", "school" => "St. Marie school"],
-            ["name" => "Charle Rena", "age" => "16", "school" => "St. Columba school"]
-        );
+        $string1 = $_REQUEST['string1'];
+        $string2 = $_REQUEST['string2'];
+        $string3 = $_REQUEST['string3'];
+        $string4 = $_REQUEST['string4'];
+        $string5 = $_REQUEST['string5'];
+
+        $stringArray = [$string1, $string2, $string3, $string4, $string5];
+
+        echo deleteRecurring($stringArray);
+    }
+    ?>
+
+    <?php
+    if ($_REQUEST['exer'] == 5) {
         ?>
-        <table border="1">
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Age</td>
-                    <td>School</td>
-                <tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($students as $index => $item) {
-                    ?>
-                    <tr>
-                        <td>
-                            <?php echo $item['name']; ?>
-                        </td>
-                        <td>
-                            <?php echo $item['age']; ?>
-                        </td>
-                        <td>
-                            <?php echo $item['school']; ?>
-                        </td>
-                    </tr>
+        <h3>PHP Functions Exercise 5</h3>
+        <form method="post" action="#">
+            Enter a number : <input type="number" name="enterNum" onkeydown="return /[0-9]/i.test(event.key)"/>
+            <input type="submit" value="Enter Number" /><br /><br />
 
-                    <?php
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+        </form>
 
-    <br />
-    <hr />
-    <br />
+        <?php
+        $getDigit = $_REQUEST['enterNum'];
 
-    <h3>PHP statements exercise 5</h3>
-    <table border='1'>
-        <tr>
-            <?php
-            for ($num1 = 0; $num1 <= 10; $num1++) {
-                if($num1 > 0){
-                    echo "<td>" . $num1 . "</td>";
-                }else{
-                    echo "<td></td>";
-                }
 
-                for ($num2 = 1; $num2 <= 10; $num2++) {
-                    if($num1 > 0) {
-                        $quo = $num2 / $num1;
-                    }else {
-                        $quo = $num2;
-                    }
-                    
-                    echo "<td>" . round($quo, 1) . "</td>";
-                }
-                ?>
-            </tr>
-            <?php
-            }
-            ?>
-    </table>
+        echo armstrongNumber($getDigit);
 
+    } ?>
 
 
 </body>
